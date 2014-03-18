@@ -158,7 +158,7 @@ if (Meteor.isServer) {
 				}
 				
 				if(lastExport && ((Date.now() - lastExport) < exportLimit*1000 ))
-					return {result:false,message:'Another screenshot?? Please, be patient and retry in a few minutes...'};
+					return {result:false,message:'Another screenshot??? Please, be patient and retry in a few minutes...'};
 				else {
 					lastExport = Date.now();
 					var paintingString = '';
