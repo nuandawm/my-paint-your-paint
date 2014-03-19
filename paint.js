@@ -177,12 +177,13 @@ if (Meteor.isServer) {
 			}
 		});
 		
-		/*Painters.find({status:{$exists:false}}).forEach(function(painter,i){
+		// When server restarts check which painters are online/offline (if not yet correct)
+		Painters.find({status:{$exists:false}}).forEach(function(painter,i){
 			if (Pixels.find({painter:painter.name}).count()>0)
 				Painters.update({_id:painter._id},{$set:{status:'online'}});
 			else
 				Painters.update({_id:painter._id},{$set:{status:'offline'}});
-		});*/
+		});
   });
 }
 
