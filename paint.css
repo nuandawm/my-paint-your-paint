@@ -70,6 +70,10 @@ body {
 	margin-right: 5px;
 }
 
+#paintersContainer .painter-name {
+	cursor: pointer;
+}
+
 /*#paletteContainer {
 	position: absolute;
 	top: 0px;

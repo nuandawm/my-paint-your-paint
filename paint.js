@@ -76,6 +76,18 @@ if (Meteor.isClient) {
 	Template.painters.painters = function(){
 		return Painters.find({},{sort:{status:-1}});
 	}
+	
+	Template.painters.events = {
+		'mouseover .painter-name' : function(event){
+			var painterName = event.target.innerHTML;
+			Pixels.find({painter:painterName}).forEach(function(pixel,i){
+				$('#'+pixel._id).css({'border':'5px solid red','width':'-=8','height':'-=8'});
+			});
+		},
+		'mouseout .painter-name' : function() {
+			$('.singlePixel').css({'border':'1px solid black','width':'20','height':'20'});
+		}
+	};
 
 	// EXPORT
 	Template.export.events = {
