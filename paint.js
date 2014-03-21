@@ -80,8 +80,8 @@ if (Meteor.isClient) {
 	Template.painters.events = {
 		'mouseover .painter-name' : function(event){
 			var painterName = event.target.innerHTML;
-			Pixels.find({painter:painterName}).forEach(function(pixel,i){
-				$('#'+pixel._id).css({'border':'5px solid red','width':'-=8','height':'-=8'});
+			var pixelArr = Pixels.find({painter:painterName},{fields:{_id:1}}).forEach(function(pixel,i){
+				document.getElementById(pixel._id).style.border='1px solid red';
 			});
 		},
 		'mouseout .painter-name' : function() {
@@ -196,6 +196,10 @@ if (Meteor.isServer) {
 			else
 				Painters.update({_id:painter._id},{$set:{status:'offline'}});
 		});
+		
+		/*Pixels.find().forEach(function(pixel,i){
+			Pixels.update({_id:pixel._id},{painter:'Giuliano',when:Date.now()});
+		});*/
   });
 }
 
