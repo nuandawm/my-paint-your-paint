@@ -36,9 +36,9 @@ if (Meteor.isClient) {
 				pixel.when = myDateFormat(pixel.when);
 			}
 			
-			if (i!=0 && i%paintWidth==0)
-				out += '<br style="clear:both;">';
 			out += options.fn(pixel);
+			if ((i+1)!=0 && (i+1)%paintWidth==0)
+				out += '<br style="clear:both;">';
 		});
 		
 		return out;

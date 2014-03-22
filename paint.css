@@ -23,7 +23,9 @@ body {
 }
 
 #paintBoard {
-	width: 890px;
+	box-shadow: 0px 0px 10px 5px white;
+	width: 880px;
+	float: left;
 }
 
 #exportContainer {
