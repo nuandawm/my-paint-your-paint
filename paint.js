@@ -23,26 +23,32 @@ if (Meteor.isClient) {
 				$(event.target).addClass('selected');
 			}
 	}
+
+	// GENERIC HELPERS
+	Template.registerHelper('myDateFormat', function (when) {
+		return myDateFormat(when);
+	});
 	
 	// PAINTING
-	Template.myPaint.pixels = function(){
-		return Pixels.find({},{sort:{num:-1}});
-	}
-	
-	Template.myPaint.mylist = function(items, options){
-		var out = '';
-		items.forEach(function(pixel, i){
-			if (pixel.when) {
-				pixel.when = myDateFormat(pixel.when);
-			}
+	Template.myPaint.helpers({
+		pixels: function(){
+			return Pixels.find({},{sort:{num:-1}});
+		},
+		mylist: function(items, options){
+			var out = '';
+			items.forEach(function(pixel, i){
+				if (pixel.when) {
+					pixel.when = myDateFormat(pixel.when);
+				}
+				
+				out += options.fn(pixel);
+				if ((i+1)!=0 && (i+1)%paintWidth==0)
+					out += '<br style="clear:both;">';
+			});
 			
-			out += options.fn(pixel);
-			if ((i+1)!=0 && (i+1)%paintWidth==0)
-				out += '<br style="clear:both;">';
-		});
-		
-		return out;
-	};
+			return out;
+		}
+	});
 	
 	Template.myPaint.events = {
 		'click .singlePixel': function(event){
@@ -73,9 +79,11 @@ if (Meteor.isClient) {
 	}
 	
 	// PAINTERS
-	Template.painters.painters = function(){
-		return Painters.find({},{sort:{status:-1}});
-	}
+	Template.painters.helpers({
+		painters: function(){
+			return Painters.find({},{sort:{status:-1}});
+		}
+	});
 	
 	Template.painters.events = {
 		'mouseover .painter-name' : function(event){
@@ -109,26 +117,14 @@ if (Meteor.isClient) {
 			}
 	}
 	
-	Template.export.screenshots = function() {
-		return Paintings.find({},{sort:{when:-1}});
-	}
-	
-	Template.export.screenshotlist = function(items, options){
-		var out = '';
-		items.forEach(function(painting, i){
-			if (painting.when) {
-				painting.when = myDateFormat(painting.when);
-			}
-			
-			if (painting.what) {
-				painting.what = colorArrayToBase64(painting.what, 4, 0, 40);
-			}
-			
-			out += options.fn(painting);
-		});
-		
-		return out;
-	};
+	Template.export.helpers({
+		screenshots: function () {
+			return Paintings.find({},{sort:{when:-1}});
+		},
+		colorArrayToBase64: function (colors) {
+			return colorArrayToBase64(colors, 4, 0, 40);
+		}
+	});
 }
 
 if (Meteor.isServer) {

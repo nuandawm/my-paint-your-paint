@@ -47,9 +47,9 @@
 
 <template name="myPaint">
 <div id="paintBoard">
-  {{#mylist pixels}}
-		<div class="singlePixel" style="background:{{color}}" id="{{_id}}" title="{{painter}} {{when}}"></div>
-  {{/mylist}}
+  {{#each pixels}}
+		<div class="singlePixel" style="background:{{color}}" id="{{_id}}" title="{{painter}} {{myDateFormat when}}"></div>
+  {{/each}}
  </div>
 </template>
 
@@ -62,12 +62,12 @@
 
 <template name="export">
 <div id="exportContainer">
-	{{#screenshotlist screenshots}}
+	{{#each screenshots}}
 		<dl class="screenshotDiv">
-			<dt class="text-center"><img src="data:image/png;base64,{{what}}" title="Click on the thumbnail to magnify" id="thumb_{{_id}}" style="cursor:pointer"/></dt>
-			<dd class="text-center">{{who}} - {{when}}</dd>
-		</div>
-	{{/screenshotlist}}
+			<dt class="text-center"><img src="data:image/png;base64,{{colorArrayToBase64 what}}" title="Click on the thumbnail to magnify" id="thumb_{{_id}}" style="cursor:pointer"/></dt>
+			<dd class="text-center">{{who}} - {{myDateFormat when}}</dd>
+		</dl>
+	{{/each}}
 </div>
 <button class="btn exportButt">export</button>
 </template>
